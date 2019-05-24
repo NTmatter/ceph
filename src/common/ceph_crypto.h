@@ -203,7 +203,7 @@ namespace ceph {
 
 #ifdef USE_OPENSSL
 namespace ceph::crypto::ssl {
-# if OPENSSL_VERSION_NUMBER < 0x10100000L
+# if OPENSSL_VERSION_NUMBER < 0x10100000L || defined LIBRESSL_VERSION_NUMBER
   class HMAC {
   private:
     HMAC_CTX mContext;
@@ -268,7 +268,7 @@ namespace ceph::crypto::ssl {
       ceph_assert_always(r == 1);
     }
   };
-# endif // OPENSSL_VERSION_NUMBER < 0x10100000L
+# endif // OPENSSL_VERSION_NUMBER < 0x10100000L || defined LIBRESSL_VERSION_NUMBER
 
   struct HMACSHA1 : public HMAC {
     HMACSHA1 (const unsigned char *key, size_t length)
