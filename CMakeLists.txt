@@ -530,8 +530,6 @@ if(WITH_REENTRANT_STRSIGNAL)
   set(HAVE_REENTRANT_STRSIGNAL 1 CACHE INTERNAL "Reentrant strsignal is supported.")
 endif()
 
-set(HAVE_LIBROCKSDB 1)
-
 # -lz link into kv
 find_package(ZLIB REQUIRED)
 
@@ -618,9 +616,13 @@ if(sanitizers)
 endif()
 
 # Rocksdb
+option(WITH_ROCKSDB "build with RocksDB" ON)
 option(WITH_SYSTEM_ROCKSDB "require and build with system rocksdb" OFF)
-if (WITH_SYSTEM_ROCKSDB)
-  find_package(RocksDB 5.8 REQUIRED)
+if(WITH_ROCKSDB)
+  if (WITH_SYSTEM_ROCKSDB)
+    find_package(RocksDB 5.8 REQUIRED)
+    set(HAVE_LIBROCKSDB 1)
+  endif()
 endif()
 
 option(WITH_SEASTAR "Build seastar components")
