@@ -49,6 +49,13 @@ int sched_setaffinity(pid_t pid, size_t cpusetsize,
 
 #endif /* __FreeBSD__ */
 
+#if defined(__APPLE__)
+#include <stdint.h>
+typedef struct cpu_set {
+  uint32_t    count;
+} cpu_set_t;
+#endif /* __APPLE__ */
+
 #if defined(__APPLE__) || defined(__FreeBSD__)
 /* Make sure that ENODATA is defined in the correct way */
 #ifdef ENODATA
@@ -108,7 +115,7 @@ int sched_setaffinity(pid_t pid, size_t cpusetsize,
 #endif
 #endif
 
-#endif /* __APPLE__ */
+#endif /* __APPLE__ || __FreeBSD__*/
 
 /* O_LARGEFILE is not defined/required on OSX/FreeBSD */
 #ifndef O_LARGEFILE
