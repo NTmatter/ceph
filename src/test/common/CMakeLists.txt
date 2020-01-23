@@ -158,6 +158,13 @@ add_executable(unittest_crc32c
 add_ceph_unittest(unittest_crc32c)
 target_link_libraries(unittest_crc32c ceph-common)
 
+# crc_playground
+add_executable(crc_playground
+  crc_playground.cc
+)
+add_ceph_unittest(crc_playground)
+target_link_libraries(crc_playground ceph-common)
+
 # unittest_config
 add_executable(unittest_config
   test_config.cc
